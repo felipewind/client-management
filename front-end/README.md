@@ -1,3 +1,3 @@
 # front-end
 
-This is the front-end of the client-management project
+This is the front-end of the client-management project 

@@ -9,6 +9,6 @@ This project is divided in two main folders:
 
 ## front-end
 
-
+ 
 ## back-end
 
