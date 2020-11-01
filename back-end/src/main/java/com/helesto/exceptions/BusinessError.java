@@ -1,8 +1,8 @@
-package com.helesto.schema;
+package com.helesto.exceptions;
 
-public class ErrorResponse {
+public class BusinessError {
 
-    public ErrorResponse(int errorCode, String errorMessage) {
+    public BusinessError(int errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
@@ -25,6 +25,11 @@ public class ErrorResponse {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "BusinessError [errorCode=" + errorCode + ", errorMessage=" + errorMessage + "]";
     }
 
 }

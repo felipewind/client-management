@@ -1,4 +1,4 @@
-package com.helesto.schema;
+package com.helesto.api;
 
 public class RequestInsertClient {
 

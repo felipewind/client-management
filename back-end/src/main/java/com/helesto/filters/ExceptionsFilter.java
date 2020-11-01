@@ -5,7 +5,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.helesto.schema.ErrorResponse;
+import com.helesto.exceptions.BusinessError;
 
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -17,9 +17,9 @@ public class ExceptionsFilter implements ExceptionMapper<Exception> {
 
     @Override
     public Response toResponse(Exception e) {
-        LOG.error("Error with exception log", e);
+        LOG.error("Exception", e);
 
-        ErrorResponse error = new ErrorResponse(1, "System error");
+        BusinessError error = new BusinessError(1, "System error");
 
         return Response.status(500).type(MediaType.APPLICATION_JSON_TYPE).entity(error).build();
 

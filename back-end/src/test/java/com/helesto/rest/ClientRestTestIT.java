@@ -3,7 +3,7 @@ package com.helesto.rest;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class InsertClientTestIT extends InsertClientTestTest {
+public class ClientRestTestIT extends ClientRestTest {
 
     // Execute the same tests but in native mode.
 }

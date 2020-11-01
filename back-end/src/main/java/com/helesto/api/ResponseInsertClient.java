@@ -1,4 +1,4 @@
-package com.helesto.schema;
+package com.helesto.api;
 
 public class ResponseInsertClient {
 
@@ -11,6 +11,5 @@ public class ResponseInsertClient {
     public void setClientId(int clientId) {
         this.clientId = clientId;
     }
-
     
 }
