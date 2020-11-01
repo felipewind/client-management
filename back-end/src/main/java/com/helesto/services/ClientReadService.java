@@ -3,7 +3,7 @@ package com.helesto.services;
 import javax.enterprise.context.RequestScoped;
 
 import com.google.gson.Gson;
-import com.helesto.api.ResponseSelectClient;
+import com.helesto.api.ResponseReadClient;
 import com.helesto.exceptions.BusinessError;
 import com.helesto.exceptions.BusinessErrorException;
 
@@ -11,17 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RequestScoped
-public class ClientSelectService {
+public class ClientReadService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClientUpdateService.class.getName());
 
-    public ResponseSelectClient selectClientService(int clientId) throws BusinessErrorException {
+    public ResponseReadClient readClientService(int id) throws BusinessErrorException {
 
-        LOG.debug("SelectClientService");
+        LOG.debug("ReadClientService");
 
-        LOG.debug("Request: clientId: " + clientId);
+        LOG.debug("Request: id: " + id);
 
-        if (clientId == 0) {
+        if (id == 0) {
 
             LOG.debug("BusinessError");
 
@@ -29,7 +29,7 @@ public class ClientSelectService {
             
         }
 
-        ResponseSelectClient response = new ResponseSelectClient();
+        ResponseReadClient response = new ResponseReadClient();
 
         response.setName("John");
         response.setBirthDate("05.10.1980");

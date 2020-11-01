@@ -13,15 +13,15 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.helesto.api.RequestInsertClient;
+import com.helesto.api.RequestCreateClient;
 import com.helesto.api.RequestUpdateClient;
-import com.helesto.api.ResponseInsertClient;
-import com.helesto.api.ResponseSelectClient;
+import com.helesto.api.ResponseCreateClient;
+import com.helesto.api.ResponseReadClient;
 import com.helesto.exceptions.BusinessError;
 import com.helesto.exceptions.BusinessErrorException;
+import com.helesto.services.ClientCreateService;
 import com.helesto.services.ClientDeleteService;
-import com.helesto.services.ClientInsertService;
-import com.helesto.services.ClientSelectService;
+import com.helesto.services.ClientReadService;
 import com.helesto.services.ClientUpdateService;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -41,10 +41,10 @@ public class ClientRest {
         private static final Logger LOG = LoggerFactory.getLogger(ClientRest.class.getName());
 
         @Inject
-        ClientInsertService clientInsertService;
+        ClientCreateService clientCreateService;
 
         @Inject
-        ClientSelectService clientSelectService;
+        ClientReadService clientReadService;
 
         @Inject
         ClientUpdateService clientUpdateService;
@@ -55,18 +55,18 @@ public class ClientRest {
         @POST
         @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-        @Operation(summary = "Insert Client", description = "Insert a client")
-        @APIResponse(responseCode = "200", description = "ResponseInsertClient", content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseInsertClient.class)) })
+        @Operation(summary = "Create a Client", description = "Create a client")
+        @APIResponse(responseCode = "200", description = "ResponseCreateClient", content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseCreateClient.class)) })
         @APIResponse(responseCode = "422", description = "Business Error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
-        public Response insert(RequestInsertClient request) throws BusinessErrorException {
+        public Response create(RequestCreateClient request) throws BusinessErrorException {
 
                 LOG.debug("ClientRest + POST - begin");
 
-                ResponseInsertClient response = clientInsertService.insertClientService(request);
+                ResponseCreateClient response = clientCreateService.CreateClientService(request);
 
                 LOG.debug("ClientRest + POST - end");
 
@@ -77,20 +77,20 @@ public class ClientRest {
         @GET
         @Consumes(MediaType.TEXT_PLAIN)
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-        @Operation(summary = "Select Client", description = "Select a client")
-        @APIResponse(responseCode = "200", description = "RequestSelectClient", content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseSelectClient.class)) })
+        @Operation(summary = "Read Client", description = "Read a client")
+        @APIResponse(responseCode = "200", description = "RequestReadClient", content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseReadClient.class)) })
         @APIResponse(responseCode = "422", description = "Business Error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
-        public Response select(
-                        @Parameter(description = "The customer id to select.", required = true) @QueryParam("id") int clientId)
+        public Response read(
+                        @Parameter(description = "The customer id to Read.", required = true) @QueryParam("id") int id)
                         throws BusinessErrorException {
 
                 LOG.debug("ClientRest + GET - begin");
 
-                ResponseSelectClient response = clientSelectService.selectClientService(clientId);
+                ResponseReadClient response = clientReadService.readClientService(id);
 
                 LOG.debug("ClientRest + GET - end");
 
@@ -129,12 +129,12 @@ public class ClientRest {
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         public Response delete(
-                        @Parameter(description = "The customer id to delete.", required = true) @QueryParam("id") int clientId)
+                        @Parameter(description = "The customer id to delete.", required = true) @QueryParam("id") int id)
                         throws BusinessErrorException {
 
                 LOG.debug("ClientRest + DELETE - begin");
 
-                clientDeleteService.deleteClientService(clientId);
+                clientDeleteService.deleteClientService(id);
 
                 LOG.debug("ClientRest + DELETE - end");
 

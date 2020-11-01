@@ -3,9 +3,10 @@ package com.helesto.rest;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.helesto.api.RequestInsertClient;
-import com.helesto.api.ResponseInsertClient;
-import com.helesto.api.ResponseSelectClient;
+import com.helesto.api.RequestCreateClient;
+import com.helesto.api.RequestUpdateClient;
+import com.helesto.api.ResponseCreateClient;
+import com.helesto.api.ResponseReadClient;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -20,15 +21,15 @@ public class ClientRestTest {
     private static final Logger LOG = LoggerFactory.getLogger(ClientRestTest.class.getName());
 
     @Test
-    public void insertClientSuccess() {
+    public void createClientSuccess() {
         
-        LOG.info("insertClientSuccess()");
+        LOG.info("createClientSuccess()");
 
-        RequestInsertClient request = new RequestInsertClient();
+        RequestCreateClient request = new RequestCreateClient();
 
         request.setName("Felipe");
 
-        ResponseInsertClient response = 
+        ResponseCreateClient response = 
             given()
             .contentType(ContentType.JSON)
             .body(request)
@@ -38,30 +39,63 @@ public class ClientRestTest {
             .statusCode(200)
             .extract()
             .body()
-            .as(ResponseInsertClient.class);
+            .as(ResponseCreateClient.class);
 
-        assertTrue(response.getClientId()>0,"Client Id < 0");
+        assertTrue(response.getid()>0,"Client Id < 0");
         
     }
 
     @Test
-    public void selectClientSuccess() {
+    public void readClientSuccess() {
         
-        LOG.info("selectClientSuccess()");
+        LOG.info("readClientSuccess()");
 
-        ResponseSelectClient response = 
+        ResponseReadClient response = 
             given()
             .when()
-            .delete("/client/1")
+            .get("/client?id=1")
             .then()
             .statusCode(200)
             .extract()
             .body()
-            .as(ResponseSelectClient.class);
+            .as(ResponseReadClient.class);
 
         assertTrue(response.getName()!=null,"Client Name is null");
         
     }
 
+    @Test
+    public void updateClientSuccess() {
+        
+        LOG.info("updateClientSuccess()");
+
+        RequestUpdateClient request = new RequestUpdateClient();
+
+        request.setid(1);
+        request.setName("Felipe");
+
+        given()
+            .contentType(ContentType.JSON)
+            .body(request)
+            .when()
+            .put("/client")
+            .then()
+            .statusCode(200);
+        
+    }
+
+    @Test
+    public void deleteClientSuccess() {
+        
+        LOG.info("deleteClientSuccess()");
+
+        given()
+            .when()
+            .get("/client?id=1")
+            .then()
+            .statusCode(200);
+        
+    }
+ 
 
 }

@@ -23,7 +23,7 @@ public class ClientUpdateService {
         String json = gson.toJson(request);
         LOG.debug("Request: " + json);
 
-        if (request.getClientId() == 0) {
+        if (request.getid() == 0) {
 
             LOG.debug("BusinessError");
 

@@ -2,7 +2,7 @@ package com.helesto.api;
 
 public class RequestUpdateClient {
 
-    private int clientId;
+    private int id;
 
     private String name;
 
@@ -12,12 +12,12 @@ public class RequestUpdateClient {
 
     private long phoneNumber;
 
-    public int getClientId() {
-        return clientId;
+    public int getid() {
+        return id;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setid(int id) {
+        this.id = id;
     }
 
     public String getName() {

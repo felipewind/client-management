@@ -1,6 +1,6 @@
 package com.helesto.api;
 
-public class ResponseSelectClient {
+public class RequestCreateClient {
 
     private String name;
 
@@ -41,5 +41,5 @@ public class ResponseSelectClient {
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
+    
 }

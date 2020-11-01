@@ -13,13 +13,13 @@ public class ClientDeleteService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClientDeleteService.class.getName());
 
-    public void deleteClientService(int clientId) throws BusinessErrorException {
+    public void deleteClientService(int id) throws BusinessErrorException {
 
         LOG.debug("DeleteClientService");
 
-        LOG.debug("Request: clientId: " + clientId);
+        LOG.debug("Request: id: " + id);
 
-        if (clientId == 0) {
+        if (id == 0) {
 
             LOG.debug("BusinessError");
 

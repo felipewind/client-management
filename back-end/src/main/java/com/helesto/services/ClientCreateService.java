@@ -3,8 +3,8 @@ package com.helesto.services;
 import javax.enterprise.context.RequestScoped;
 
 import com.google.gson.Gson;
-import com.helesto.api.RequestInsertClient;
-import com.helesto.api.ResponseInsertClient;
+import com.helesto.api.RequestCreateClient;
+import com.helesto.api.ResponseCreateClient;
 import com.helesto.exceptions.BusinessError;
 import com.helesto.exceptions.BusinessErrorException;
 
@@ -12,13 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RequestScoped
-public class ClientInsertService {
+public class ClientCreateService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClientInsertService.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ClientCreateService.class.getName());
 
-    public ResponseInsertClient insertClientService(RequestInsertClient request) throws BusinessErrorException {
+    public ResponseCreateClient CreateClientService(RequestCreateClient request) throws BusinessErrorException {
 
-        LOG.debug("InsertClientService");
+        LOG.debug("CreateClientService");
 
         Gson gson = new Gson();
         String json = gson.toJson(request);
@@ -32,9 +32,9 @@ public class ClientInsertService {
             
         }
 
-        ResponseInsertClient response = new ResponseInsertClient();
+        ResponseCreateClient response = new ResponseCreateClient();
 
-        response.setClientId(1);        
+        response.setid(1);        
 
         json = gson.toJson(response);
         LOG.debug("Response: " + json);
