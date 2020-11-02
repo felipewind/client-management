@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.helesto.api.RequestCreateClient;
 import com.helesto.api.RequestUpdateClient;
 import com.helesto.api.ResponseCreateClient;
+import com.helesto.api.ResponseListClient;
 import com.helesto.api.ResponseReadClient;
 
 import org.junit.jupiter.api.Test;
@@ -61,6 +62,25 @@ public class ClientRestTest {
             .as(ResponseReadClient.class);
 
         assertTrue(response.getName()!=null,"Client Name is null");
+        
+    }
+
+    @Test
+    public void listClientSuccess() {
+        
+        LOG.info("listClientSuccess()");
+
+        ResponseListClient response = 
+            given()
+            .when()
+            .get("/client/list")
+            .then()
+            .statusCode(200)
+            .extract()
+            .body()
+            .as(ResponseListClient.class);
+
+        assertTrue(response.getListClient().size()!=0,"List is empty");
         
     }
 
