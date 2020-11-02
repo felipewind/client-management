@@ -12,3 +12,10 @@ This project is divided in two main folders:
  
 ## back-end
 
+To run the back-end in dev mode, enter inside the back-folder folder and type:
+```bash
+./mvnw compile quarkus:dev
+```
+
+Access swagger:
+- http://localhost:8080/swagger-ui

@@ -1,6 +1,6 @@
-package com.helesto.schema;
+package com.helesto.api;
 
-public class RequestInsertClient {
+public class ResponseReadClient {
 
     private String name;
 
@@ -41,5 +41,5 @@ public class RequestInsertClient {
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
+
 }
