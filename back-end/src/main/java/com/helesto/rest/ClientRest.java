@@ -17,13 +17,11 @@ import com.helesto.api.RequestCreateClient;
 import com.helesto.api.RequestUpdateClient;
 import com.helesto.api.ResponseCreateClient;
 import com.helesto.api.ResponseListClient;
-import com.helesto.api.ResponseReadClient;
 import com.helesto.exceptions.BusinessError;
 import com.helesto.exceptions.BusinessErrorException;
 import com.helesto.services.ClientCreateService;
 import com.helesto.services.ClientDeleteService;
 import com.helesto.services.ClientListService;
-import com.helesto.services.ClientReadService;
 import com.helesto.services.ClientUpdateService;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -44,9 +42,6 @@ public class ClientRest {
 
         @Inject
         ClientCreateService clientCreateService;
-
-        @Inject
-        ClientReadService clientReadService;
 
         @Inject
         ClientListService clientListService;
@@ -80,31 +75,6 @@ public class ClientRest {
         }
 
         @GET
-        @Consumes(MediaType.TEXT_PLAIN)
-        @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-        @Operation(summary = "Read Client", description = "Read a client")
-        @APIResponse(responseCode = "200", description = "RequestReadClient", content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseReadClient.class)) })
-        @APIResponse(responseCode = "422", description = "Business Error", content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
-        @APIResponse(responseCode = "500", description = "System error", content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
-        public Response read(
-                        @Parameter(description = "The customer id to Read.", required = true) @QueryParam("id") int id)
-                        throws BusinessErrorException {
-
-                LOG.debug("ClientRest + GET - begin");
-
-                ResponseReadClient response = clientReadService.readClientService(id);
-
-                LOG.debug("ClientRest + GET - end");
-
-                return Response.status(Response.Status.OK).entity(response).build();
-
-        }
-
-        @GET
-        @Path("/list")
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Operation(summary = "List Client", description = "List clients")
         @APIResponse(responseCode = "200", description = "RequestReadClient", content = {

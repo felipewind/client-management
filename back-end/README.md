@@ -6,6 +6,13 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
+## Steps to run the test with PostgreSQL
+1. Start the database docker images;
+
+```bash
+docker run -d --name postgres-db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=usersdb postgres
+```
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:

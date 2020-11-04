@@ -7,7 +7,6 @@ import com.helesto.api.RequestCreateClient;
 import com.helesto.api.RequestUpdateClient;
 import com.helesto.api.ResponseCreateClient;
 import com.helesto.api.ResponseListClient;
-import com.helesto.api.ResponseReadClient;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -47,25 +46,6 @@ public class ClientRestTest {
     }
 
     @Test
-    public void readClientSuccess() {
-        
-        LOG.info("readClientSuccess()");
-
-        ResponseReadClient response = 
-            given()
-            .when()
-            .get("/client?id=1")
-            .then()
-            .statusCode(200)
-            .extract()
-            .body()
-            .as(ResponseReadClient.class);
-
-        assertTrue(response.getName()!=null,"Client Name is null");
-        
-    }
-
-    @Test
     public void listClientSuccess() {
         
         LOG.info("listClientSuccess()");
@@ -73,7 +53,7 @@ public class ClientRestTest {
         ResponseListClient response = 
             given()
             .when()
-            .get("/client/list")
+            .get("/client")
             .then()
             .statusCode(200)
             .extract()
