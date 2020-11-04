@@ -21,6 +21,7 @@ public class Client {
             allocationSize = 1,
             initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENT_SEQUENCE")
+    @Column(name = "ID")
     private int id;
 
     @Column(name = "NAME", length = 80)
