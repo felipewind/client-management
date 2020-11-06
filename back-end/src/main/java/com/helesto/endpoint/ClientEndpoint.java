@@ -1,4 +1,4 @@
-package com.helesto.rest;
+package com.helesto.endpoint;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -36,9 +36,9 @@ import org.slf4j.LoggerFactory;
 @Path("/client")
 @Tag(name = "Client", description = "Client CRUD")
 @RequestScoped
-public class ClientRest {
+public class ClientEndpoint {
 
-        private static final Logger LOG = LoggerFactory.getLogger(ClientRest.class.getName());
+        private static final Logger LOG = LoggerFactory.getLogger(ClientEndpoint.class.getName());
 
         @Inject
         ClientCreateService clientCreateService;

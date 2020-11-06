@@ -1,4 +1,4 @@
-package com.helesto.rest;
+package com.helesto.endpoint;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,9 +16,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-public class ClientRestTest {
+public class ClientEndpointTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClientRestTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ClientEndpointTest.class.getName());
 
     @Test
     public void createClientSuccess() {

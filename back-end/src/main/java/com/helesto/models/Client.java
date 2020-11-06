@@ -7,11 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CLIENT")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+        name = "Client.findAll",
+        query = "SELECT * " +
+                "FROM  CLIENT " ,
+            resultClass = Client.class                
+    ),
+})
 public class Client {
 
     @Id
