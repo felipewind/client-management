@@ -26,7 +26,7 @@ public class ClientCreateService {
     @Inject
     ClientRepository clientRepository;
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     public ResponseCreateClient CreateClientService(RequestCreateClient request) throws BusinessErrorException {
 
         LOG.debug("CreateClientService");

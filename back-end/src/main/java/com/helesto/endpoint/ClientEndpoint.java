@@ -55,7 +55,7 @@ public class ClientEndpoint {
         @POST
         @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-        @Operation(summary = "Create a Client", description = "Create a client")
+        @Operation(summary = "Create a Client", description = "Create a Client. Inform date field with the format mm/dd/yyyy")
         @APIResponse(responseCode = "200", description = "ResponseCreateClient", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseCreateClient.class)) })
         @APIResponse(responseCode = "422", description = "Business Error", content = {
@@ -83,8 +83,7 @@ public class ClientEndpoint {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
-        public Response list()
-                        throws BusinessErrorException {
+        public Response list() throws BusinessErrorException {
 
                 LOG.debug("ClientRest + GET - begin");
 
@@ -99,7 +98,7 @@ public class ClientEndpoint {
         @PUT
         @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-        @Operation(summary = "Update Client", description = "Update a client")
+        @Operation(summary = "Update Client", description = "Update a client.  Inform date field with the format mm/dd/yyyy")
         @APIResponse(responseCode = "200", description = "Succes")
         @APIResponse(responseCode = "422", description = "Business Error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })

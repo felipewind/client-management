@@ -28,6 +28,9 @@ public class ClientEndpointTest {
         RequestCreateClient request = new RequestCreateClient();
 
         request.setName("Felipe");
+        request.setBirthDate("03/25/1983");
+        request.setEmail("felipe@teste.com");
+        request.setPhoneNumber(987654);
 
         ResponseCreateClient response = 
             given()
@@ -73,6 +76,9 @@ public class ClientEndpointTest {
 
         request.setid(1);
         request.setName("Felipe");
+        request.setBirthDate("03/25/1983");
+        request.setEmail("felipe@teste.com");
+        request.setPhoneNumber(987654);
 
         given()
             .contentType(ContentType.JSON)
