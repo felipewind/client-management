@@ -36,5 +36,14 @@ public class ClientRepository {
             throw e;
         }
     }
- 
+
+    public void persistClient(Client client) {
+        try {
+            entityManager.persist(client);
+        } catch (PersistenceException e) {
+            LOG.error("PersistenceException", e);
+            throw e;
+        }
+    }
+
 }
