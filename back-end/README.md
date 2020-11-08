@@ -1,10 +1,43 @@
 # client-management project
 
+## Steps to run this project in development mode
+1. Start the database docker images;
+
+```bash
+docker run -d --name postgres-db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres postgres
+```
+
+2. Run the application:
+```shell script
+./mvnw compile quarkus:dev
+```
+
+3. Or you can run inside docker-compose:
+```
+chmod +x ./run.sh
+./run.sh
+```
+
+4. From a browser access http://localhost:8080/swagger-ui to see the endpoints provided by this project
+
+
+5. PostgreSQL connection
+
+```
+url=jdbc:postgresql://localhost:5432/postgres
+user=postgres
+password=postgres
+```
+
+
+## Quarkus
+
 This is the back-end of the Client Management project.
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+
 
 ## Running the application in dev mode
 

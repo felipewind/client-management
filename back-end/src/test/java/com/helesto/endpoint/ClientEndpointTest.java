@@ -1,4 +1,4 @@
-package com.helesto.rest;
+package com.helesto.endpoint;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,7 +7,6 @@ import com.helesto.api.RequestCreateClient;
 import com.helesto.api.RequestUpdateClient;
 import com.helesto.api.ResponseCreateClient;
 import com.helesto.api.ResponseListClient;
-import com.helesto.api.ResponseReadClient;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -17,9 +16,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-public class ClientRestTest {
+public class ClientEndpointTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ClientRestTest.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ClientEndpointTest.class.getName());
 
     @Test
     public void createClientSuccess() {
@@ -29,6 +28,9 @@ public class ClientRestTest {
         RequestCreateClient request = new RequestCreateClient();
 
         request.setName("Felipe");
+        request.setBirthDate("03/25/1983");
+        request.setEmail("felipe@teste.com");
+        request.setPhoneNumber(987654);
 
         ResponseCreateClient response = 
             given()
@@ -47,25 +49,6 @@ public class ClientRestTest {
     }
 
     @Test
-    public void readClientSuccess() {
-        
-        LOG.info("readClientSuccess()");
-
-        ResponseReadClient response = 
-            given()
-            .when()
-            .get("/client?id=1")
-            .then()
-            .statusCode(200)
-            .extract()
-            .body()
-            .as(ResponseReadClient.class);
-
-        assertTrue(response.getName()!=null,"Client Name is null");
-        
-    }
-
-    @Test
     public void listClientSuccess() {
         
         LOG.info("listClientSuccess()");
@@ -73,7 +56,7 @@ public class ClientRestTest {
         ResponseListClient response = 
             given()
             .when()
-            .get("/client/list")
+            .get("/client")
             .then()
             .statusCode(200)
             .extract()
@@ -93,6 +76,9 @@ public class ClientRestTest {
 
         request.setid(1);
         request.setName("Felipe");
+        request.setBirthDate("03/25/1983");
+        request.setEmail("felipe@teste.com");
+        request.setPhoneNumber(987654);
 
         given()
             .contentType(ContentType.JSON)
