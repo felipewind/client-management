@@ -12,6 +12,23 @@ docker run -d --name postgres-db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTG
 ./mvnw compile quarkus:dev
 ```
 
+3. Or you can run inside docker-compose:
+```
+chmod +x ./run.sh
+./run.sh
+```
+
+4. From a browser access http://localhost:8080/swagger-ui to see the endpoints provided by this project
+
+
+5. PostgreSQL connection
+
+```
+url=jdbc:postgresql://localhost:5432/postgres
+user=postgres
+password=postgres
+```
+
 
 ## Quarkus
 
