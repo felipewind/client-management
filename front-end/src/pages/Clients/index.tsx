@@ -7,6 +7,8 @@ import {
   DescriptionContainer,
   DataContainer,
   ClientContainer,
+  ManageClientPopup,
+  ClientDetailsContainer,
 } from './styles';
 
 import Menu from '../../components/Menu';
@@ -21,6 +23,7 @@ interface Client {
 }
 
 const Clients: React.FC = () => {
+  const [openManageClientPopup, setOpenManageClientPopup] = useState(false);
   const [selectedClient, setSelectedClient] = useState<Client>({} as Client);
 
   const [clients] = useState<Client[]>([
@@ -65,14 +68,36 @@ const Clients: React.FC = () => {
           <div>
             <section>
               <h1>Manage client</h1>
-              <FiChevronDown />
+              <button
+                type="button"
+                onClick={() => {
+                  if (!!selectedClient.id) {
+                    setOpenManageClientPopup(!openManageClientPopup);
+                  }
+                }}
+              >
+                <FiChevronDown />
+              </button>
+
+              {!!selectedClient.id &&
+                openManageClientPopup && (
+                <ManageClientPopup>
+                  <button type="button">
+                    Edit client
+                  </button>
+
+                  <button type="button">
+                    Delete client
+                  </button>
+                </ManageClientPopup>
+              )}
             </section>
 
             <Button>ADD +</Button>
           </div>
         </HeaderContainer>
 
-        <DataContainer>
+        <DataContainer clientIsSelected={!!selectedClient.id}>
           <DescriptionContainer>
             <strong>Name</strong>
             <strong>E-mail</strong>
@@ -91,6 +116,8 @@ const Clients: React.FC = () => {
                   } else {
                     setSelectedClient(client);
                   }
+
+                  setOpenManageClientPopup(false);
                 }}
               >
                 <section>
@@ -109,6 +136,32 @@ const Clients: React.FC = () => {
           </nav>
         </DataContainer>
       </Container>
+
+      <ClientDetailsContainer clientIsSelected={!!selectedClient.id}>
+        <section>
+          <div>
+            <FiUser />
+          </div>
+        </section>
+
+        <section>
+          <article>
+            <strong>Name</strong>
+            <h2>{selectedClient.name}</h2>
+
+            <strong>E-mail</strong>
+            <h2>{selectedClient.email}</h2>
+          </article>
+
+          <article>
+            <strong>Phone Number</strong>
+            <h2>{selectedClient.phone_number}</h2>
+
+            <strong>Birth Date</strong>
+            <h2>{selectedClient.birth_date}</h2>
+          </article>
+        </section>
+      </ClientDetailsContainer>
     </>
   );
 };

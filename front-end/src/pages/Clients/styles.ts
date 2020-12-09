@@ -1,5 +1,14 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { shade } from 'polished';
+
+const appearFromLeft = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+`;
 
 interface HeaderContainerProps {
   clientIsSelected: boolean;
@@ -8,6 +17,10 @@ interface HeaderContainerProps {
 interface ClientContainerProps {
   isSelected: boolean;
 }
+
+type DataContainerProps = HeaderContainerProps;
+
+type ClientDetailsContainerProps = DataContainerProps;
 
 export const Container = styled.div`
   position: relative;
@@ -38,32 +51,39 @@ export const HeaderContainer = styled.header<HeaderContainerProps>`
       display: flex;
       align-items: center;
       margin-right: 24px;
+      position: relative;
 
-    h1 {
-      font-size: 24px;
-      font-weight: 500;
-      color: #cfd0d3;
-      padding: 0;
-    }
+      h1 {
+        font-size: 24px;
+        font-weight: 500;
+        color: #cfd0d3;
+        padding: 0;
+      }
 
-    svg {
-      margin-left: 6px;
-      width: 30px;
-      height: 30px;
-      color: #cfd0d3;
-    }
+      > button {
+        background: none;
+        border: 0;
+        width: auto;
+
+        svg {
+          margin-left: 6px;
+          width: 30px;
+          height: 30px;
+          color: #cfd0d3;
+        }
+      }
 
       ${props => props.clientIsSelected && css`
-        cursor: pointer;
-
         h1 {
           color: #3f454e;
           transition: color 0.2s;
         }
 
-        svg {
-          color: #3f454e;
-          transition: color 0.2s;
+        > button {
+          svg {
+            color: #3f454e;
+            transition: color 0.2s;
+          }
         }
 
         &:hover {
@@ -71,8 +91,10 @@ export const HeaderContainer = styled.header<HeaderContainerProps>`
             color: ${shade(0.2, '#3f454e')};
           }
 
-          svg {
-            color: ${shade(0.2, '#3f454e')};
+          > button {
+            svg {
+              color: ${shade(0.2, '#3f454e')};
+            }
           }
         }
       `}
@@ -85,9 +107,9 @@ export const HeaderContainer = styled.header<HeaderContainerProps>`
   }
 `;
 
-export const DataContainer = styled.div`
+export const DataContainer = styled.div<DataContainerProps>`
   width: 100%;
-  height: 90%;
+  height: ${props => props.clientIsSelected ? '50%' : '90%'};
   display: flex;
   flex-direction: column;
 
@@ -142,12 +164,24 @@ export const ClientContainer = styled.div<ClientContainerProps>`
   padding: 12px;
   transition: background-color 0.2s;
 
+  & + div {
+    border-top: 1px solid #cfd0d3;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid #cfd0d3;
+  }
+
   &:hover {
     background: #cfd0d3;
   }
 
   ${props => props.isSelected && css`
-    background: #cfd0d3;
+    background: ${shade(0.2, '#cfd0d3')};
+
+    &:hover {
+      background: ${shade(0.2, '#cfd0d3')};
+    }
   `}
 
   section {
@@ -195,6 +229,126 @@ export const ClientContainer = styled.div<ClientContainerProps>`
 
     &:nth-child(4) {
       width: 15%;
+    }
+  }
+`;
+
+export const ManageClientPopup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  position: absolute;
+  width: auto;
+  right: 0;
+  background: #fff;
+
+  margin-bottom: -150px;
+  border-radius: 6px;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
+
+  button {
+    background: none;
+    border: 0;
+    font-size: 20px;
+    font-weight: 400;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: ${shade(0.2, '#fff')};
+    }
+
+    &:first-child {
+      border-radius: 6px 6px 0 0;
+      color: #3f454e;
+    }
+
+    &:last-child {
+      border-radius: 0 0 6px 6px;
+      color: #ff3333;
+    }
+  }
+`;
+
+export const ClientDetailsContainer = styled.div<ClientDetailsContainerProps>`
+  position: absolute;
+  bottom: 0;
+  overflow-y: hidden;
+
+  animation: ${appearFromLeft} 1s;
+
+  ${props => !props.clientIsSelected ? css`
+    display: none;
+  ` : css`
+    display: flex;
+  `}
+
+  width: 100%;
+  height: 30%;
+  margin-left: 300px;
+  background: #fff;
+  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.16);
+
+  flex-direction: row;
+
+  section {
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+      justify-content: center;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+
+      padding: 0 32px;
+    }
+
+    &:last-child {
+      box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.16);
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 120px;
+      height: 120px;
+      background: #3f454e;
+      border-radius: 50%;
+
+      svg {
+        width: 80px;
+        height: 80px;
+        color: #1fbeff;
+      }
+    }
+
+    > article {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      padding: 32px;
+
+      strong {
+        margin-bottom: 6px;
+        font-size: 24px;
+        font-weight: 400;
+        color: #cfd0d3;
+      }
+
+      h2 {
+        padding: 0;
+        font-size: 20px;
+        font-weight: 500;
+        color: #3f454e;
+
+        & + strong {
+          margin-top: 12px;
+        }
+      }
     }
   }
 `;
