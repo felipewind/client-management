@@ -23,7 +23,9 @@ import Menu from '../../components/Menu';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Loading from '../../components/Loading';
-import ClientModal from '../../components/Modal/ClientModal';
+
+import EditClientModal from '../../components/Modal/EditClientModal';
+import DeleteClientModal from '../../components/Modal/DeleteClientModal';
 
 export interface IClientOperationsData {
   name: string;
@@ -45,6 +47,8 @@ const Clients: React.FC = () => {
   const [toRefresh, setToRefresh] = useState(true);
 
   const [clientOpen, setClientOpen] = useState(false);
+  const [deleteClientOpen, setDeleteClientOpen] = useState(false);
+
   const [openAddClient, setOpenAddClient] = useState(false);
   const [openManageClientPopup, setOpenManageClientPopup] = useState(false);
 
@@ -81,6 +85,30 @@ const Clients: React.FC = () => {
     },
   ]);
 
+  const handleDeleteClient = useCallback(async () => {
+    try {
+
+      setLoading(true);
+
+      // await api.delete(`clients/${selectedClient.id}`);
+
+      addToast({
+        type: 'success',
+        title: 'Client deleted successfully',
+      });
+
+      setToRefresh(true);
+      setSelectedClient({} as Client);
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'An error occurred to delete this client',
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [addToast]);
+
   const handleSubmit = useCallback(
     async (data: IClientOperationsData) => {
       try {
@@ -110,7 +138,7 @@ const Clients: React.FC = () => {
 
         addToast({
           type: 'success',
-          title: 'Cliente criado com sucesso',
+          title: 'Client added successfully',
         });
 
         setOpenAddClient(false);
@@ -133,6 +161,10 @@ const Clients: React.FC = () => {
     },
     [addToast],
   );
+
+  const toggleModalDeleteClient = useCallback(() => {
+    setDeleteClientOpen(!deleteClientOpen);
+  }, [deleteClientOpen]);
 
   const toggleModalClient = useCallback(() => {
     setClientOpen(!clientOpen);
@@ -168,7 +200,13 @@ const Clients: React.FC = () => {
 
       <Menu />
 
-      <ClientModal
+      <DeleteClientModal
+        handleDeleteClient={handleDeleteClient}
+        isOpen={deleteClientOpen}
+        setIsOpen={toggleModalDeleteClient}
+      />
+
+      <EditClientModal
         client={selectedClient}
         isOpen={clientOpen}
         setIsOpen={toggleModalClient}
@@ -211,7 +249,9 @@ const Clients: React.FC = () => {
               </div>
             </section>
 
-            <Button type="submit">ADD +</Button>
+            <Button type="submit">
+              ADD +
+            </Button>
           </Form>
         </ClientAdditionContainer>
       ) : (
@@ -240,7 +280,7 @@ const Clients: React.FC = () => {
                       Edit client
                     </button>
 
-                    <button type="button">
+                    <button type="button" onClick={toggleModalDeleteClient}>
                       Delete client
                     </button>
                   </ManageClientPopup>

@@ -23,7 +23,7 @@ interface IModalProps {
   setToRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ClientModal: React.FC<IModalProps> = ({
+const EditClientModal: React.FC<IModalProps> = ({
   client,
   isOpen,
   setIsOpen,
@@ -150,4 +150,4 @@ const ClientModal: React.FC<IModalProps> = ({
   );
 };
 
-export default ClientModal;
+export default EditClientModal;
