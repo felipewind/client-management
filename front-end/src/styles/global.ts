@@ -26,6 +26,15 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
   &::-webkit-scrollbar {
     width: 7px;
   }
