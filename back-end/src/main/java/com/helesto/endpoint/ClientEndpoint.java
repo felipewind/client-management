@@ -2,21 +2,20 @@ package com.helesto.endpoint;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.helesto.api.RequestCreateClient;
-import com.helesto.api.RequestUpdateClient;
-import com.helesto.api.ResponseCreateClient;
-import com.helesto.api.ResponseListClient;
+import com.helesto.dto.ClientDto;
 import com.helesto.exceptions.BusinessError;
 import com.helesto.exceptions.BusinessErrorException;
 import com.helesto.services.ClientCreateService;
@@ -56,19 +55,23 @@ public class ClientEndpoint {
         @Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Operation(summary = "Create a Client", description = "Create a Client. Inform date field with the format mm/dd/yyyy")
-        @APIResponse(responseCode = "200", description = "ResponseCreateClient", content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseCreateClient.class)) })
+        @APIResponse(responseCode = "200", description = "OK", content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = ClientDto.class)) })
         @APIResponse(responseCode = "422", description = "Business Error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
-        public Response create(RequestCreateClient request) throws BusinessErrorException {
+        public Response create(ClientDto request) throws BusinessErrorException {
 
-                LOG.debug("ClientRest + POST - begin");
+                Jsonb jsonb = JsonbBuilder.create();
+                String jsonString = jsonb.toJson(request);
 
-                ResponseCreateClient response = clientCreateService.CreateClientService(request);
+                LOG.debug("ClientRest + POST - request - " + jsonString);
 
-                LOG.debug("ClientRest + POST - end");
+                ClientDto response = clientCreateService.CreateClientService(request);
+
+                jsonString = jsonb.toJson(response);
+                LOG.debug("ClientRest + POST - response - " + jsonString);
 
                 return Response.status(Response.Status.OK).entity(response).build();
 
@@ -77,19 +80,22 @@ public class ClientEndpoint {
         @GET
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Operation(summary = "List Client", description = "List clients")
-        @APIResponse(responseCode = "200", description = "RequestReadClient", content = {
-                        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseListClient.class)) })
+        @APIResponse(responseCode = "200", description = "OK", content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = ClientDto[].class)) })
         @APIResponse(responseCode = "422", description = "Business Error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         public Response list() throws BusinessErrorException {
 
-                LOG.debug("ClientRest + GET - begin");
+                LOG.debug("ClientRest + GET");
 
-                ResponseListClient response = clientListService.listClientService();
+                ClientDto[] response = clientListService.listClientService();
 
-                LOG.debug("ClientRest + GET - end");
+                Jsonb jsonb = JsonbBuilder.create();
+                String jsonString = jsonb.toJson(response);
+
+                LOG.debug("Response + GET - response - " + jsonString);
 
                 return Response.status(Response.Status.OK).entity(response).build();
 
@@ -104,20 +110,24 @@ public class ClientEndpoint {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
-        public Response update(RequestUpdateClient request) throws BusinessErrorException {
+        public Response update(ClientDto request) throws BusinessErrorException {
 
-                LOG.debug("ClientRest + PUT - begin");
+                Jsonb jsonb = JsonbBuilder.create();
+                String jsonString = jsonb.toJson(request);
 
-                clientUpdateService.updateClientService(request);
+                LOG.debug("ClientRest + PUT - request - " + jsonString);
 
-                LOG.debug("ClientRest + PUT - end");
+                ClientDto response = clientUpdateService.updateClientService(request);
 
-                return Response.status(Response.Status.OK).build();
+                jsonString = jsonb.toJson(response);
+                LOG.debug("ClientRest + PUT - response - " + jsonString);
+
+                return Response.status(Response.Status.OK).entity(response).build();
 
         }
 
         @DELETE
-        @Consumes(MediaType.TEXT_PLAIN)
+        @Path("{id}")
         @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
         @Operation(summary = "Delete Client", description = "Delete a client")
         @APIResponse(responseCode = "200", description = "Sucess")
@@ -126,10 +136,10 @@ public class ClientEndpoint {
         @APIResponse(responseCode = "500", description = "System error", content = {
                         @Content(mediaType = "application/json", schema = @Schema(implementation = BusinessError.class)) })
         public Response delete(
-                        @Parameter(description = "The customer id to delete.", required = true) @QueryParam("id") int id)
+                        @Parameter(description = "The customer id to delete.", required = true) @PathParam("id") int id)
                         throws BusinessErrorException {
 
-                LOG.debug("ClientRest + DELETE - begin");
+                LOG.debug("ClientRest + DELETE - id=[" + id + "]");
 
                 clientDeleteService.deleteClientService(id);
 

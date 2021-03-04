@@ -1,6 +1,24 @@
-package com.helesto.api;
+package com.helesto.dto;
 
-public class RequestCreateClient {
+import com.helesto.models.Client;
+import com.helesto.utils.DateUtils;
+
+public class ClientDto {
+
+    public ClientDto() {
+        
+    }
+
+    public ClientDto(Client client) {
+        this.id = client.getId();
+        this.name = client.getName();
+        this.birthDate = DateUtils.localDateToStringMmDdYyyy(client.getBirthDate());
+        this.email = client.getEmail();
+        this.phoneNumber = client.getPhoneNumber();
+    }    
+
+
+    private int id;
 
     private String name;
 
@@ -41,5 +59,13 @@ public class RequestCreateClient {
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+ 
 }

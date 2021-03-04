@@ -6,8 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import com.google.gson.Gson;
-import com.helesto.api.RequestUpdateClient;
+import com.helesto.dto.ClientDto;
 import com.helesto.exceptions.BusinessError;
 import com.helesto.exceptions.BusinessErrorException;
 import com.helesto.models.Client;
@@ -26,21 +25,17 @@ public class ClientUpdateService {
     ClientRepository clientRepository;
 
     @Transactional(rollbackOn = Exception.class)
-    public void updateClientService(RequestUpdateClient request) throws BusinessErrorException {
+    public ClientDto updateClientService(ClientDto request) throws BusinessErrorException {
 
         LOG.debug("UpdateClientService");
 
-        Gson gson = new Gson();
-        String json = gson.toJson(request);
-        LOG.debug("Request: " + json);
-
-        if (request.getid() == 0) {
+        if (request.getId() == 0) {
             LOG.debug("BusinessError");
             throw new BusinessErrorException(new BusinessError(2, "Please inform the client ID"));            
         }
 
         Client client = new Client();
-        client.setId(request.getid());
+        client.setId(request.getId());
         client.setName(request.getName());
         client.setEmail(request.getEmail());
         client.setPhoneNumber(request.getPhoneNumber());
@@ -52,6 +47,8 @@ public class ClientUpdateService {
         }
 
         clientRepository.updateClient(client);
+
+        return new ClientDto(client);
 
     }
 

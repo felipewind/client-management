@@ -6,9 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import com.google.gson.Gson;
-import com.helesto.api.RequestCreateClient;
-import com.helesto.api.ResponseCreateClient;
+import com.helesto.dto.ClientDto;
 import com.helesto.exceptions.BusinessError;
 import com.helesto.exceptions.BusinessErrorException;
 import com.helesto.models.Client;
@@ -27,13 +25,9 @@ public class ClientCreateService {
     ClientRepository clientRepository;
 
     @Transactional(rollbackOn = Exception.class)
-    public ResponseCreateClient CreateClientService(RequestCreateClient request) throws BusinessErrorException {
+    public ClientDto CreateClientService(ClientDto request) throws BusinessErrorException {
 
         LOG.debug("CreateClientService");
-
-        Gson gson = new Gson();
-        String json = gson.toJson(request);
-        LOG.debug("Request: " + json);
 
         if (request.getName() == null || request.getName().equals("")) {
 
@@ -59,14 +53,9 @@ public class ClientCreateService {
 
         clientRepository.persistClient(client);
 
-        ResponseCreateClient response = new ResponseCreateClient();
+        ClientDto clientDto = new ClientDto(client);
 
-        response.setid(client.getId());
-
-        json = gson.toJson(response);
-        LOG.debug("Response: " + json);
-
-        return response;
+        return clientDto;
     }
 
 }

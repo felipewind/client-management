@@ -16,7 +16,6 @@ import { MODES } from "./sharedState.model";
 	imports: [BrowserModule, FormsModule, ModelModule, MessageModule],
 	declarations: [TableComponent, FormComponent],
 	exports: [ModelModule, TableComponent, FormComponent],
-	// providers: [{ provide: SHARED_STATE, useValue: new Subject<SharedState>() }]
 	providers: [{ 
 		provide: SHARED_STATE, 
 		deps: [MessageService, Model],

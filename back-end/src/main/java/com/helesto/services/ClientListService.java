@@ -6,12 +6,9 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import com.google.gson.Gson;
-import com.helesto.api.ResponseClient;
-import com.helesto.api.ResponseListClient;
+import com.helesto.dto.ClientDto;
 import com.helesto.exceptions.BusinessErrorException;
 import com.helesto.repository.ClientRepository;
-import com.helesto.utils.DateUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,27 +21,19 @@ public class ClientListService {
     @Inject
     ClientRepository clientRepository;
 
-    public ResponseListClient listClientService() throws BusinessErrorException {
+    public ClientDto[] listClientService() throws BusinessErrorException {
 
         LOG.debug("listClientService");
 
-        List<ResponseClient> listClient = new ArrayList<>();
+        List<ClientDto> listClient = new ArrayList<>();
 
         clientRepository.findAll().forEach(client -> {
-            listClient.add(new ResponseClient(client.getId(), client.getName(),
-                    DateUtils.localDateToStringMmDdYyyy(client.getBirthDate()), client.getEmail(),
-                    client.getPhoneNumber()));
+            listClient.add(new ClientDto(client));
         });
 
-        ResponseListClient response = new ResponseListClient();
+        ClientDto[] responseClientArray = listClient.toArray(new ClientDto[0]);
 
-        response.setListClient(listClient);
-
-        Gson gson = new Gson();
-        String json = gson.toJson(response);
-        LOG.debug("Response: " + json);
-
-        return response;
+        return responseClientArray;
     }
 
 }
