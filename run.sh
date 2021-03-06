@@ -6,7 +6,7 @@ printf "\n"
 printf "========== Building local Back-End Project with local Maven ============\n"
 printf "\n"
 cd back-end/
-mvn package -Dquarkus.package.type=fast-jar
+./mvnw package
 cd ..
 printf "\n"
 printf "============ Back-end Project builded successfully by  Maven ===========\n"

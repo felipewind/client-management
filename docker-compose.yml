@@ -6,7 +6,7 @@ services:
     image: client-back-end:latest    
     build:
       context: ./back-end/
-      dockerfile: ./src/main/docker/Dockerfile.fast-jar
+      dockerfile: ./src/main/docker/Dockerfile.jvm
     ports:
       - 8080:8080
     environment:
