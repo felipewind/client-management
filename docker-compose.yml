@@ -1,6 +1,20 @@
 version: "3.8"
 
 services:
+  client-postgresql:
+    container_name: client-postgresql
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+    ports:
+        - 5432:5432
+    networks:
+      - client-management-net
+    volumes:
+      - ./client.sql:/docker-entrypoint-initdb.d/client.sql
+
   client-back-end:
     container_name: client-back-end
     image: client-back-end:latest    
@@ -15,20 +29,21 @@ services:
       - QUARKUS_DATASOURCE_PASSWORD=postgres
     networks:
       - client-management-net      
+    depends_on:      
+      - client-postgresql
 
-  client-postgresql:
-    container_name: client-postgresql
-    image: postgres
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
+  client-front-end:
+    container_name: client-front-end
+    image: client-front-end:latest    
+    build:
+      context: ./front-end/
+      dockerfile: ./Dockerfile
     ports:
-        - 5432:5432
+      - 80:80
     networks:
-      - client-management-net
-    volumes:
-      - ./client.sql:/docker-entrypoint-initdb.d/client.sql
+      - client-management-net      
+    depends_on:      
+      - client-back-end
 
 
 networks:

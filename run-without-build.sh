@@ -1,15 +1,6 @@
 #!/bin/bash
 
-printf "===== Executing Docker Compose with Build to start the application =====\n"
-printf "\n"
-
-printf "========== Building local Back-End Project with local Maven ============\n"
-printf "\n"
-cd back-end/
-./mvnw package
-cd ..
-printf "\n"
-printf "============ Back-end Project builded successfully by  Maven ===========\n"
+printf "===== Executing Docker Compose without Build to start the application ====\n"
 printf "\n"
 
 function ctrl_c() {
