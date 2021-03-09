@@ -18,9 +18,6 @@ services:
   client-back-end:
     container_name: client-back-end
     image: felipewind/client-back-end:1.0    
-    build:
-      context: ./back-end/
-      dockerfile: ./src/main/docker/Dockerfile.jvm
     ports:
       - 8080:8080
     environment:
@@ -35,9 +32,6 @@ services:
   client-front-end:
     container_name: client-front-end
     image: felipewind/client-front-end:1.0
-    build:
-      context: ./front-end/
-      dockerfile: ./Dockerfile
     ports:
       - 80:80
     networks:
