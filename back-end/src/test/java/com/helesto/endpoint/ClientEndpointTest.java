@@ -3,10 +3,7 @@ package com.helesto.endpoint;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.helesto.api.RequestCreateClient;
-import com.helesto.api.RequestUpdateClient;
-import com.helesto.api.ResponseCreateClient;
-import com.helesto.api.ResponseListClient;
+import com.helesto.dto.ClientDto;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -25,14 +22,14 @@ public class ClientEndpointTest {
         
         LOG.info("createClientSuccess()");
 
-        RequestCreateClient request = new RequestCreateClient();
+        ClientDto request = new ClientDto();
 
         request.setName("Felipe");
         request.setBirthDate("03/25/1983");
         request.setEmail("felipe@teste.com");
         request.setPhoneNumber(987654);
 
-        ResponseCreateClient response = 
+        ClientDto response = 
             given()
             .contentType(ContentType.JSON)
             .body(request)
@@ -42,9 +39,9 @@ public class ClientEndpointTest {
             .statusCode(200)
             .extract()
             .body()
-            .as(ResponseCreateClient.class);
+            .as(ClientDto.class);
 
-        assertTrue(response.getid()>0,"Client Id < 0");
+        assertTrue(response.getId()>0,"Client Id < 0");
         
     }
 
@@ -53,7 +50,7 @@ public class ClientEndpointTest {
         
         LOG.info("listClientSuccess()");
 
-        ResponseListClient response = 
+        ClientDto[] response = 
             given()
             .when()
             .get("/client")
@@ -61,9 +58,9 @@ public class ClientEndpointTest {
             .statusCode(200)
             .extract()
             .body()
-            .as(ResponseListClient.class);
+            .as(ClientDto[].class);
 
-        assertTrue(response.getListClient().size()!=0,"List is empty");
+        assertTrue(response.length!=0,"Array is empty");
         
     }
 
@@ -72,9 +69,9 @@ public class ClientEndpointTest {
         
         LOG.info("updateClientSuccess()");
 
-        RequestUpdateClient request = new RequestUpdateClient();
+        ClientDto request = new ClientDto();
 
-        request.setid(1);
+        request.setId(1);
         request.setName("Felipe");
         request.setBirthDate("03/25/1983");
         request.setEmail("felipe@teste.com");

@@ -1,26 +1,45 @@
-# client-management project
+# Front-end of client-management project
 
-## React.js
+## How to start this project in development mode
 
-This is the front-end of the Client Management project.
+1. Start the [back-end](../back-end/README.md) project.
 
-This project uses React.js, the Facebook JavaScript Framework. However, it is used the Typescript template.
+2. Start this project
 
-If you want to learn more about React.js, please visit its website: https://reactjs.org.
-
-## Steps to run this project in development mode
-
-1. Certificate you have a node package manager installed;
-```shell script
-yarn -v
+Run:
+```
+ng serve
 ```
 
-2. Install the dependencies;
-```shell script
-yarn
-```
+3. Access the application at `http://localhost:4200`
 
-3. Run the application;
-```shell script
-yarn start
-```
+
+
+# Angular
+
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
