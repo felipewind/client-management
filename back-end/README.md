@@ -1,33 +1,33 @@
-# client-management project
+# Back-end of client-management project
 
-## Steps to run this project in development mode
-1. Start the database docker images;
+## How to start this project in development mode
 
-```bash
-docker run -d --name postgres-db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres postgres
+### With H2 in memory database
+
+1. Run the application:
 ```
-
-2. Run the application:
-```shell script
 ./mvnw compile quarkus:dev
 ```
 
-3. Or you can run inside docker-compose:
+### With PostgreSQL
+
+1. Uncoment the PostgreSQL develpment ( `%dev` ) parameters in the [application.properties](./src/main/resources/application.properties) and then comment the H2 develpment ( `%dev` ) parameters.
+
+2. Start the PostgreSQL:
 ```
-chmod +x ./run.sh
-./run.sh
+docker run -d --name postgres-db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres postgres
 ```
 
-4. From a browser access http://localhost:8080/swagger-ui to see the endpoints provided by this project
-
-
-5. PostgreSQL connection
-
+3. Run the application:
 ```
-url=jdbc:postgresql://localhost:5432/postgres
-user=postgres
-password=postgres
+./mvnw compile quarkus:dev
 ```
+
+## How to access the Swagger-ui
+
+
+From a browser access http://localhost:8080/swagger-ui to see the endpoints provided by this project
+
 
 
 ## Quarkus

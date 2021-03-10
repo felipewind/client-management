@@ -1,4 +1,22 @@
-# FrontEnd
+# Front-end of client-management project
+
+## How to start this project in development mode
+
+1. Start the [back-end](../back-end/README.md) project.
+
+2. Start this project
+
+Run:
+```
+ng serve
+```
+
+3. Access the application at `http://localhost:4200`
+
+
+
+# Angular
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
 
