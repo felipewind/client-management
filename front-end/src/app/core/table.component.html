@@ -1,0 +1,23 @@
+<table class="table table-sm table-bordered table-striped">
+	<tr>
+		<th>ID</th><th>Name</th><th>Birth Date</th><th>Email</th><th>Phone Number</th><th></th>
+	</tr>
+	<tr *ngFor="let item of getClients()">
+		<td>{{item.id}}</td>
+		<td>{{item.name}}</td>
+		<td>{{item.birthDate}}</td>
+		<td>{{item.email}}</td>
+        <td>{{item.phoneNumber}}</td>
+		<td class="text-center">
+			<button class="btn btn-danger btn-sm mr-1" 	(click)="deleteClient(item.id)">
+				Delete
+			</button>
+			<button class="btn btn-warning btn-sm" (click)="editClient(item.id)">
+				Edit
+			</button>
+		</td>
+	</tr>
+</table>
+<button class="btn btn-primary m-1" (click)="createClient()">
+	Create New Client
+</button>
