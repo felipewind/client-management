@@ -12,6 +12,8 @@ The back-end uses a PostgreSQL to persist the data.
 
 ![image](./images/client-management.png)
 
+![image](./images/client-management-back-end-swagger.png)
+
 # Running the project
 
 ## Running this project with the Docker Hub images
@@ -24,6 +26,9 @@ Execute the script on the root folder:
 ```
 ./run-from-docker-hub.sh
 ```
+
+Access the UI at `http://localhost/` or the swagger back end at `http://localhost:8080/q/swagger-ui/`.
+
 
 ## Building the project locally and then running it
 
@@ -44,6 +49,8 @@ After the first build, if you want to run it again without building it, just exe
 run-after-first-build.sh
 ```
 
+Access the UI at `http://localhost/` or the swagger back end at `http://localhost:8080/q/swagger-ui/`.
+
 ## Running it locally in development mode
 
 Install:
@@ -57,4 +64,6 @@ Follow the instructions of the projects:
 - [front-end](./front-end/README.md);
 
 You need to start first the back-end.
+
+Access the UI at `http://localhost:4200/` or the swagger back end at `http://localhost:8080/q/swagger-ui/`.
 
