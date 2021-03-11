@@ -249,6 +249,7 @@ buildNumber.properties
 .m2/
 
 ### VisualStudioCode ### 
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
