@@ -10,6 +10,8 @@ This project is divided in two main folders:
 
 The back-end uses a PostgreSQL to persist the data.
 
+![image](./images/client-management.png)
+
 # Running the project
 
 ## Running this project with the Docker Hub images
