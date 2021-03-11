@@ -10,7 +10,15 @@ This project is divided in two main folders:
 
 The back-end uses a PostgreSQL to persist the data.
 
+Docker images generated from this project on Docke Hub>
+- [back-end](https://hub.docker.com/repository/docker/felipewind/client-back-end);
+- [front-end](https://hub.docker.com/repository/docker/felipewind/client-front-end);
+
+# User interface
+
 ![image](./images/client-management.png)
+
+# Back-end swagger
 
 ![image](./images/client-management-back-end-swagger.png)
 
